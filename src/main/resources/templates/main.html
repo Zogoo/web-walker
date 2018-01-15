@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login page</title>
+</head>
+<body>
+<h1>Login page</h1>
+<p th:if="${loginError}" class="error">Wrong user or password</p>
+<span th:text="'Agent: ' + ${agent}"></span>
+<form th:action="@{/compare.html}" method="post">
+    <label for="url">Web url</label>:
+    <input type="text" id="url" name="url" autofocus="autofocus" /> <br />
+    <input type="submit" value="Compare" />
+</form>
+</body>
+</html>

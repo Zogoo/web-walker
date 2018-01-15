@@ -30,5 +30,7 @@ dependencies {
 	compile 'org.jsoup:jsoup:1.11.2'
     // for Thymeleaf
     compile("org.thymeleaf:thymeleaf-spring4")
+	// for Lombok
+    compile('org.projectlombok:lombok')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
