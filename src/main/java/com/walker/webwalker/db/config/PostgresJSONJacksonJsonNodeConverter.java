@@ -1,4 +1,4 @@
-package com.walker.webwalker.db;
+package com.walker.webwalker.db.config;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;

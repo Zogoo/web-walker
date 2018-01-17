@@ -1,4 +1,4 @@
-package com.walker.webwalker.db;
+package com.walker.webwalker.db.config;
 
 import org.jooq.impl.DataSourceConnectionProvider;
 import org.jooq.impl.DefaultConfiguration;

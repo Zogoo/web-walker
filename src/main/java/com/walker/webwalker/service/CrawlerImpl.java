@@ -3,7 +3,6 @@ package com.walker.webwalker.service;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
-import org.postgresql.Driver;
 
 import java.io.IOException;
 
