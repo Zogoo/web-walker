@@ -1,0 +1,11 @@
+---
+version: '2'
+services:
+  postgres-ci:
+    build:
+      context: .
+      dockerfile: CI-Dockerfile
+    image: walker:ci
+    ports:
+      - "7654:5432"
+    restart: always
