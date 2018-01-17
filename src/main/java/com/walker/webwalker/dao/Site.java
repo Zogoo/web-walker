@@ -1,12 +1,15 @@
 package com.walker.webwalker.dao;
 
-import org.jooq.DSLContext;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.Builder;
+import lombok.Data;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
+@Data
+@Builder
 public class Site {
-    @Autowired
-    private DSLContext dsl;
-
+    private String siteUrl;
+    private String pageJs;
+    private String PageCss;
+    private String pageHtml;
 }
