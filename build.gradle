@@ -85,7 +85,9 @@ dependencies{
 }
 
 jooq {
-    csmart(sourceSets.main) {
+    version = '3.10.4'
+    edition = 'OSS'
+    walker(sourceSets.main) {
         jdbc {
             driver = 'org.postgresql.Driver'
             url = 'jdbc:postgresql://localhost:5432/web_walker'
@@ -104,7 +106,7 @@ jooq {
                 customTypes {
                     customType {
                         name = 'com.fasterxml.jackson.databind.JsonNode'
-                        converter = 'csmart.api.config.db.PostgresJSONJacksonJsonNodeBinding'
+                        converter = 'com.walker.webwalker.util.PostgresJsonBinding'
                     }
                 }
                 forcedTypes {
@@ -137,5 +139,5 @@ flyway {
     locations = ["filesystem:$project.projectDir/src/main/resources/db/migration"]
 }
 
-generateCsmartJooqSchemaSource.dependsOn flywayMigrate
+generateWalkerJooqSchemaSource.dependsOn flywayMigrate
 test.dependsOn flywayClean
