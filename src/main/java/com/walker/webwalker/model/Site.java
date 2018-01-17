@@ -6,8 +6,8 @@ import lombok.Data;
 @Data
 @Builder
 public class Site {
-    private String site_url;
-    private String page_html;
-    private String page_css;
-    private String page_js;
+    private String siteUrl;
+    private String pageHtml;
+    private String pageCss;
+    private String pageJs;
 }

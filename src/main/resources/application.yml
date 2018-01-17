@@ -1,3 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/web_walker
+    username: zogoo
+    password: admin
 host:
  url: "http://www.google.com"
 client:

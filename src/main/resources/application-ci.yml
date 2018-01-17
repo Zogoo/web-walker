@@ -1,0 +1,8 @@
+#Database Configuration
+spring:
+  profiles: ci
+  datasource:
+    url: jdbc:postgresql://localhost:5432/web_walker
+    username: zogoo
+    password: admin
+
