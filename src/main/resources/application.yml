@@ -1,0 +1,8 @@
+host:
+ url: "http://www.google.com"
+client:
+ agent: "Mozilla"
+ timeout: 5000
+ cookie: "value123"
+ refferer: "http://google.com"
+ header: "xyz123"
