@@ -1,4 +1,5 @@
-package com.walker.webwalker.util;
+package com.walker.webwalker.db;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import org.jooq.*;
 import org.jooq.impl.DSL;
@@ -9,12 +10,12 @@ import java.sql.Types;
 
 import static org.jooq.tools.Convert.convert;
 
-public class PostgresJsonBinding
+public class PostgresJSONJacksonJsonNodeBinding
         implements Binding<Object, JsonNode> {
 
     @Override
     public Converter<Object, JsonNode> converter() {
-        return (Converter<Object, JsonNode>) new PostgresJsonBinding();
+        return new PostgresJSONJacksonJsonNodeConverter();
     }
 
     @Override
