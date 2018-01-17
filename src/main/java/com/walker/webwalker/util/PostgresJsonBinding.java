@@ -14,7 +14,7 @@ public class PostgresJsonBinding
 
     @Override
     public Converter<Object, JsonNode> converter() {
-        return new PostgresJsonBinding();
+        return (Converter<Object, JsonNode>) new PostgresJsonBinding();
     }
 
     @Override
