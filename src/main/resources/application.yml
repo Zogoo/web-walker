@@ -11,3 +11,5 @@ client:
   cookie: "value123"
   refferer: "http://google.com"
   header: "xyz123"
+flyway:
+  baseline-on-migrate: true
