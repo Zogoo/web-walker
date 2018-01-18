@@ -24,8 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-//@AutoConfigureMockMvc
-@WebMvcTest(WebWalkerControllerTest.class)
+@AutoConfigureMockMvc
+//@WebMvcTest(WebWalkerControllerTest.class)
 public class WebWalkerControllerTest {
 
     @Autowired
@@ -39,6 +39,7 @@ public class WebWalkerControllerTest {
 
     @Test
     public void addNewSite() throws Exception {
-        mvc.perform(post("/add").param("site_url", "https://www.test.mn"));
+        mvc.perform(post("/add")
+                .param("site_url", "https://www.test.mn"));
     }
 }

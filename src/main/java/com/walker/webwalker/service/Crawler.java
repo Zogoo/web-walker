@@ -1,5 +1,7 @@
 package com.walker.webwalker.service;
 
-public interface Crawler {
+import java.io.IOException;
 
+public interface Crawler {
+    void setSiteUrl(String siteUrl) throws IOException;
 }

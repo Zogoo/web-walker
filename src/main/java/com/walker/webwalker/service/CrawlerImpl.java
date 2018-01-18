@@ -1,9 +1,11 @@
 package com.walker.webwalker.service;
 
 import com.walker.webwalker.dto.SiteDocument;
+import jdk.nashorn.internal.objects.annotations.Constructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -18,8 +20,11 @@ public class CrawlerImpl implements Crawler{
     private HashMap<String, String> images;
     private Node<String> mainUrl;
     private ClientConfiguration config;
+    @Autowired
+    private String siteUrl;
 
-    public CrawlerImpl(String siteUrl) throws IOException {
+    @Override
+    public void setSiteUrl(String siteUrl) throws IOException {
         this.config = new ClientConfiguration();
         this.currentPage = Jsoup.connect(siteUrl).get();
         this.mainUrl = new Node<String>(siteUrl);
