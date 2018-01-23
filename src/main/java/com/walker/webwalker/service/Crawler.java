@@ -1,5 +1,9 @@
 package com.walker.webwalker.service;
 
-public interface Crawler {
+import org.jsoup.nodes.Document;
 
+import java.io.IOException;
+
+public interface Crawler {
+    Document visitUrl(String url) throws IOException;
 }

@@ -2,8 +2,10 @@ package com.walker.webwalker.service;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 @Data
+@Service("config")
 public class ClientConfiguration {
 
     @Value("${host.url}")
