@@ -71,7 +71,7 @@ dependencies{
     // Dev-tools
     compile group: 'org.springframework.boot', name: 'spring-boot-devtools'
     compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
-    compile group: 'org.flywaydb', name: 'flyway-core'
+    compile group: 'org.flywaydb', name: 'flyway-core', version: '4.2.0'
     // Jsoup HTML parser library @ https://jsoup.org/
     compile group: 'org.jsoup', name: 'jsoup', version: '1.11.2'
     // for Lombok
