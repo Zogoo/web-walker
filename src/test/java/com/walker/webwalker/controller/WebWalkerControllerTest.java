@@ -32,7 +32,7 @@ public class WebWalkerControllerTest {
     @Test
     public void addNewSite() throws Exception {
         final MultiValueMap<String, String> param = new LinkedMultiValueMap<>();
-        param.add("siteUrl","https://test.url.com");
+        param.add("url","https://test.url.com");
         param.add("test","https://test.url.com");
         ResultActions resultActions = this.mvc.perform(post("/add").params(param));
         resultActions.andExpect(status().isOk());
