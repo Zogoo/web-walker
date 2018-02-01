@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service("siteManager")
 @Transactional
@@ -17,11 +18,16 @@ public class SiteManagerImpl implements SiteManager {
     private Extractor extractor;
 
     @Autowired
-    private Site site;
+    private SiteRepository siteRepository;
 
     @Override
     public boolean addNewSite(NewSite newSite){
-        site.addSite(SiteRepository.builder().siteUrl(newSite.getUrl()).build());
+        siteRepository.addSite(Site.builder().siteUrl(newSite.getUrl()).build());
         return true;
+    }
+
+    @Override
+    public List<Site> readAllSite(){
+        return siteRepository.readAllSite();
     }
 }

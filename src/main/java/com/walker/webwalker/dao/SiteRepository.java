@@ -1,16 +1,32 @@
 package com.walker.webwalker.dao;
 
-import lombok.Builder;
-import lombok.Data;
+import org.jooq.DSLContext;
+import org.jooq.exception.DataAccessException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotNull;
+import java.util.List;
 
-@Data
-@Builder
+import static com.walker.webwalker.dao.tables.Site.SITE;
+
+@Repository
 public class SiteRepository {
-    @NotNull
-    private String siteUrl;
-    private String pageHtml;
-    private String pageCss;
-    private String pageJs;
+
+    @Autowired
+    DSLContext dslContext;
+
+    @Transactional(rollbackFor = DataAccessException.class)
+    public void addSite(Site site) {
+
+        dslContext.insertInto(SITE, SITE.SITE_URL, SITE.PAGE_HTML, SITE.PAGE_CSS, SITE.PAGE_JS)
+                .values(site.getSiteUrl(), site.getPageHtml(), site.getPageCss(), site.getPageJs())
+                .execute();
+    }
+
+    @Transactional(rollbackFor = DataAccessException.class)
+    public List<Site> readAllSite(){
+        List<Site> allSite = dslContext.select().from(SITE).fetch().into(Site.class);
+        return allSite;
+    }
 }
