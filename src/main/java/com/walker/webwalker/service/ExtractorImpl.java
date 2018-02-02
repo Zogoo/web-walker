@@ -19,10 +19,8 @@ public class ExtractorImpl implements Extractor {
 
     @Override
     public void parseDocument(Optional<Document> document){
-
         document.map(this::parseAsString);
         document.map(this::getListLinks);
-
         return;
     }
 

@@ -23,7 +23,6 @@ public class CrawlerImpl implements Crawler {
         document = Jsoup.connect(url).userAgent(config.getAgent()).get();
 //      document.outerHtml();
         extractor.parseDocument(Optional.ofNullable(document));
-
         return document;
     }
 
