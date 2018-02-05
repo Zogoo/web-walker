@@ -34,7 +34,8 @@ public class SiteRepository {
     public boolean updateSite(Site site){
         dslContext.update(SITE)
                 .set(SITE.PAGE_HTML, site.getPageHtml())
-                .where(SITE.SITE_URL.eq(site.getSiteUrl()));
+                .where(SITE.SITE_URL.eq(site.getSiteUrl()))
+                .execute();
         return true;
     }
 }
