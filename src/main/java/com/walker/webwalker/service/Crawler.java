@@ -1,9 +1,9 @@
 package com.walker.webwalker.service;
 
-import org.jsoup.nodes.Document;
-
-import java.io.IOException;
+import edu.uci.ics.crawler4j.crawler.Page;
+import edu.uci.ics.crawler4j.url.WebURL;
 
 public interface Crawler {
-    Document visitUrl(String url) throws IOException;
+    boolean shouldVisit(Page refferingPage, WebURL url);
+    void visit(Page page);
 }

@@ -32,10 +32,7 @@ public class WebWalkerController {
     @Resource(name = "config")
     private ClientConfiguration configuration;
 
-    @Resource(name = "crawler")
-    private Crawler crawler;
-
-    @Resource(name = "siteManager")
+    @Autowired
     private SiteManager siteManager;
 
     @RequestMapping(value = "/", method = GET)
@@ -53,13 +50,11 @@ public class WebWalkerController {
     @RequestMapping(value = "compare", method = GET)
     public GenericResponse compare(final HttpServletRequest request, final Model model) throws IOException {
         Locale locale = request.getLocale();
-        siteManager.readAllSite().forEach((site) ->{
-            try {
-                crawler.visitUrl(site.getSiteUrl());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
+        try {
+            siteManager.readAndCompare();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return new GenericResponse("success");
     }

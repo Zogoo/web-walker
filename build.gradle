@@ -52,7 +52,10 @@ dependencyManagement {
 repositories {
     mavenCentral()
     jcenter()
-    maven { url "http://repo.spring.io/libs-snapshot" }
+    maven {
+        url "http://repo.spring.io/libs-snapshot"
+        url "https://repo.boundlessgeo.com/main/"
+    }
 }
 
 sourceCompatibility = 1.8
@@ -74,12 +77,17 @@ dependencies{
     compile group: 'org.flywaydb', name: 'flyway-core', version: '4.2.0'
     // Jsoup HTML parser library @ https://jsoup.org/
     compile group: 'org.jsoup', name: 'jsoup', version: '1.11.2'
+    // Crawler for Java
+    compile group: 'edu.uci.ics', name: 'crawler4j', version: '4.3'
     // for Lombok
     compile group: 'org.projectlombok', name: 'lombok'
 
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
     testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
     testCompile group: 'junit', name: 'junit'
+
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.10.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.10.0'
 
     jooqRuntime group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
 }

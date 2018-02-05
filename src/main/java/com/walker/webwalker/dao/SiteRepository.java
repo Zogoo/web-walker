@@ -29,4 +29,12 @@ public class SiteRepository {
         List<Site> allSite = dslContext.select().from(SITE).fetch().into(Site.class);
         return allSite;
     }
+
+    @Transactional
+    public boolean updateSite(Site site){
+        dslContext.update(SITE)
+                .set(SITE.PAGE_HTML, site.getPageHtml())
+                .where(SITE.SITE_URL.eq(site.getSiteUrl()));
+        return true;
+    }
 }

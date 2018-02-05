@@ -1,45 +1,42 @@
 package com.walker.webwalker.service;
 
 import com.walker.webwalker.dto.Items;
+import edu.uci.ics.crawler4j.crawler.Page;
+import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import lombok.Data;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Optional;
 
 @Data
 @Service("extractor")
 public class ExtractorImpl implements Extractor {
 
-    private String html;
-    private String body;
-    private String header;
     private Items items;
 
     @Override
-    public void parseDocument(Optional<Document> document){
-        document.map(this::parseAsString);
-        document.map(this::getListLinks);
-        return;
-    }
-
-    private Items getListLinks(Document doc){
-        Elements links = doc.select("a[href]");
-        Elements media = doc.select("[src]");
-        Elements imports = doc.select("link[href]");
-
-        this.items = Items.builder()
-                .links(Optional.ofNullable(links))
-                .medias(Optional.ofNullable(media))
-                .imports(Optional.ofNullable(imports)).build();
+    public Items parseDocument(Optional<Page> page){
+        page.map(this::parseAsString);
         return items;
     }
 
-    private boolean parseAsString(Document doc) {
-        this.html = doc.outerHtml();
-        this.body = doc.body().outerHtml();
-        this.header = doc.head().outerHtml();
-        return true;
+    private Items parseAsString(Page page){
+
+        if (page.getParseData() instanceof HtmlParseData){
+
+            HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
+            this.items = Items.builder()
+                    .url(page.getWebURL().getURL())
+                    .html(Optional.ofNullable(htmlParseData.getHtml()))
+                    .page_text(Optional.ofNullable(htmlParseData.getText()))
+                    .build();
+        }
+
+        return items;
     }
+
+
 }
