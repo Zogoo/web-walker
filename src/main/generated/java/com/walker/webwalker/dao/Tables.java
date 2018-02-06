@@ -6,6 +6,7 @@ package com.walker.webwalker.dao;
 
 import com.walker.webwalker.dao.tables.SchemaVersion;
 import com.walker.webwalker.dao.tables.Site;
+import com.walker.webwalker.dao.tables.SubSite;
 
 import javax.annotation.Generated;
 
@@ -32,4 +33,9 @@ public class Tables {
      * The table <code>public.site</code>.
      */
     public static final Site SITE = com.walker.webwalker.dao.tables.Site.SITE;
+
+    /**
+     * The table <code>public.sub_site</code>.
+     */
+    public static final SubSite SUB_SITE = com.walker.webwalker.dao.tables.SubSite.SUB_SITE;
 }

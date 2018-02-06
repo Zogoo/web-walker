@@ -38,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Site extends TableImpl<SiteRecord> {
 
-    private static final long serialVersionUID = -1492026967;
+    private static final long serialVersionUID = 1145116079;
 
     /**
      * The reference instance of <code>public.site</code>
@@ -59,14 +59,19 @@ public class Site extends TableImpl<SiteRecord> {
     public final TableField<SiteRecord, String> SITE_URL = createField("site_url", org.jooq.impl.SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.site.id</code>.
+     * The column <code>public.site.site_id</code>.
      */
-    public final TableField<SiteRecord, String> ID = createField("id", org.jooq.impl.SQLDataType.VARCHAR(32), this, "");
+    public final TableField<SiteRecord, Integer> SITE_ID = createField("site_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>public.site.page_html</code>.
      */
     public final TableField<SiteRecord, String> PAGE_HTML = createField("page_html", org.jooq.impl.SQLDataType.VARCHAR, this, "");
+
+    /**
+     * The column <code>public.site.page_txt</code>.
+     */
+    public final TableField<SiteRecord, String> PAGE_TXT = createField("page_txt", org.jooq.impl.SQLDataType.VARCHAR, this, "");
 
     /**
      * The column <code>public.site.page_css</code>.
@@ -120,7 +125,7 @@ public class Site extends TableImpl<SiteRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.SITE_PKEY);
+        return Arrays.<Index>asList(Indexes.SITE_PKEY, Indexes.SITES);
     }
 
     /**
@@ -136,7 +141,7 @@ public class Site extends TableImpl<SiteRecord> {
      */
     @Override
     public List<UniqueKey<SiteRecord>> getKeys() {
-        return Arrays.<UniqueKey<SiteRecord>>asList(Keys.SITE_PKEY);
+        return Arrays.<UniqueKey<SiteRecord>>asList(Keys.SITES, Keys.SITE_PKEY);
     }
 
     /**

@@ -6,11 +6,14 @@ package com.walker.webwalker.dao;
 
 import com.walker.webwalker.dao.tables.SchemaVersion;
 import com.walker.webwalker.dao.tables.Site;
+import com.walker.webwalker.dao.tables.SubSite;
 import com.walker.webwalker.dao.tables.records.SchemaVersionRecord;
 import com.walker.webwalker.dao.tables.records.SiteRecord;
+import com.walker.webwalker.dao.tables.records.SubSiteRecord;
 
 import javax.annotation.Generated;
 
+import org.jooq.ForeignKey;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
 
@@ -39,12 +42,16 @@ public class Keys {
     // -------------------------------------------------------------------------
 
     public static final UniqueKey<SchemaVersionRecord> SCHEMA_VERSION_PK = UniqueKeys0.SCHEMA_VERSION_PK;
+    public static final UniqueKey<SiteRecord> SITES = UniqueKeys0.SITES;
     public static final UniqueKey<SiteRecord> SITE_PKEY = UniqueKeys0.SITE_PKEY;
+    public static final UniqueKey<SubSiteRecord> SUB_SITE_PKEY = UniqueKeys0.SUB_SITE_PKEY;
+    public static final UniqueKey<SubSiteRecord> SUB_SITES = UniqueKeys0.SUB_SITES;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final ForeignKey<SubSiteRecord, SiteRecord> SUB_SITE__SUB_SITE_SITE_ID_FKEY = ForeignKeys0.SUB_SITE__SUB_SITE_SITE_ID_FKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -52,6 +59,13 @@ public class Keys {
 
     private static class UniqueKeys0 extends AbstractKeys {
         public static final UniqueKey<SchemaVersionRecord> SCHEMA_VERSION_PK = createUniqueKey(SchemaVersion.SCHEMA_VERSION, "schema_version_pk", SchemaVersion.SCHEMA_VERSION.INSTALLED_RANK);
-        public static final UniqueKey<SiteRecord> SITE_PKEY = createUniqueKey(Site.SITE, "site_pkey", Site.SITE.SITE_URL);
+        public static final UniqueKey<SiteRecord> SITES = createUniqueKey(Site.SITE, "sites", Site.SITE.SITE_URL);
+        public static final UniqueKey<SiteRecord> SITE_PKEY = createUniqueKey(Site.SITE, "site_pkey", Site.SITE.SITE_ID);
+        public static final UniqueKey<SubSiteRecord> SUB_SITE_PKEY = createUniqueKey(SubSite.SUB_SITE, "sub_site_pkey", SubSite.SUB_SITE.SUB_SITE_ID);
+        public static final UniqueKey<SubSiteRecord> SUB_SITES = createUniqueKey(SubSite.SUB_SITE, "sub_sites", SubSite.SUB_SITE.SITE_URL);
+    }
+
+    private static class ForeignKeys0 extends AbstractKeys {
+        public static final ForeignKey<SubSiteRecord, SiteRecord> SUB_SITE__SUB_SITE_SITE_ID_FKEY = createForeignKey(com.walker.webwalker.dao.Keys.SITE_PKEY, SubSite.SUB_SITE, "sub_site__sub_site_site_id_fkey", SubSite.SUB_SITE.SITE_ID);
     }
 }

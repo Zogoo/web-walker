@@ -16,7 +16,7 @@ public class CrawlerImplTest {
 
     @Before
     public void setUp() throws Exception {
-        File file = ResourceUtils.getFile(this.getClass().getResource("/test/resources/dummy_site.html"));
+//        File file = ResourceUtils.getFile(this.getClass().getResource("/test/resources/dummy_site.html"));
     }
 
     @After

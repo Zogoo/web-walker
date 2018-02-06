@@ -6,6 +6,7 @@ package com.walker.webwalker.dao;
 
 import com.walker.webwalker.dao.tables.SchemaVersion;
 import com.walker.webwalker.dao.tables.Site;
+import com.walker.webwalker.dao.tables.SubSite;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,7 +32,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 2139551197;
+    private static final long serialVersionUID = 187787213;
 
     /**
      * The reference instance of <code>public</code>
@@ -47,6 +48,11 @@ public class Public extends SchemaImpl {
      * The table <code>public.site</code>.
      */
     public final Site SITE = com.walker.webwalker.dao.tables.Site.SITE;
+
+    /**
+     * The table <code>public.sub_site</code>.
+     */
+    public final SubSite SUB_SITE = com.walker.webwalker.dao.tables.SubSite.SUB_SITE;
 
     /**
      * No further instances allowed
@@ -74,6 +80,7 @@ public class Public extends SchemaImpl {
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
             SchemaVersion.SCHEMA_VERSION,
-            Site.SITE);
+            Site.SITE,
+            SubSite.SUB_SITE);
     }
 }
