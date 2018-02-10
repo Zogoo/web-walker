@@ -7,14 +7,20 @@ import org.springframework.data.annotation.Id;
 import javax.validation.constraints.NotNull;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.sql.Date;
 
 @Data
 @Builder
-public class Site {
+public class Content {
     @Id
     private Integer id;
     @NotNull
-    private String siteUrl;
-    private Date confirmedAt;
+    private Boolean baseContent;
+    @NotNull
+    private String pageHtml;
+    @NotNull
+    private String pageTxt;
+    private String pageCss;
+    private String pageJs;
+    private Integer pageId;
+    private Integer newContentId;
 }

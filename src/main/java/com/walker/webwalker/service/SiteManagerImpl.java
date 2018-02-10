@@ -62,7 +62,7 @@ public class SiteManagerImpl implements SiteManager {
         CrawlController controller = new CrawlController(config, pageFetcher, robotstxtServer);
 
 
-        siteRepository.readAllSite().forEach((site) -> {
+        siteRepository.fetchAllSite().forEach((site) -> {
             controller.addSeed(site.getSiteUrl());
         });
 

@@ -29,8 +29,8 @@ public class ExtractorImpl implements Extractor {
 
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
             this.items = Items.builder()
-                    .url(page.getWebURL().getURL())
-                    .html(Optional.ofNullable(htmlParseData.getHtml()))
+                    .host_url(page.getWebURL().getURL())
+                    .page_html(Optional.ofNullable(htmlParseData.getHtml()))
                     .page_text(Optional.ofNullable(htmlParseData.getText()))
                     .build();
         }

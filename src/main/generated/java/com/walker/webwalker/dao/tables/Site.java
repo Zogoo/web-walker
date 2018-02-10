@@ -9,12 +9,15 @@ import com.walker.webwalker.dao.Keys;
 import com.walker.webwalker.dao.Public;
 import com.walker.webwalker.dao.tables.records.SiteRecord;
 
+import java.sql.Timestamp;
+import java.time.OffsetDateTime;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Schema;
@@ -38,7 +41,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Site extends TableImpl<SiteRecord> {
 
-    private static final long serialVersionUID = 1145116079;
+    private static final long serialVersionUID = 1997900969;
 
     /**
      * The reference instance of <code>public.site</code>
@@ -54,34 +57,29 @@ public class Site extends TableImpl<SiteRecord> {
     }
 
     /**
+     * The column <code>public.site.id</code>.
+     */
+    public final TableField<SiteRecord, Integer> ID = createField("id", org.jooq.impl.SQLDataType.INTEGER.nullable(false).defaultValue(org.jooq.impl.DSL.field("nextval('site_id_seq'::regclass)", org.jooq.impl.SQLDataType.INTEGER)), this, "");
+
+    /**
      * The column <code>public.site.site_url</code>.
      */
     public final TableField<SiteRecord, String> SITE_URL = createField("site_url", org.jooq.impl.SQLDataType.VARCHAR.nullable(false), this, "");
 
     /**
-     * The column <code>public.site.site_id</code>.
+     * The column <code>public.site.confirmed_at</code>.
      */
-    public final TableField<SiteRecord, Integer> SITE_ID = createField("site_id", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<SiteRecord, OffsetDateTime> CONFIRMED_AT = createField("confirmed_at", org.jooq.impl.SQLDataType.TIMESTAMPWITHTIMEZONE, this, "");
 
     /**
-     * The column <code>public.site.page_html</code>.
+     * The column <code>public.site.created_at</code>.
      */
-    public final TableField<SiteRecord, String> PAGE_HTML = createField("page_html", org.jooq.impl.SQLDataType.VARCHAR, this, "");
+    public final TableField<SiteRecord, Timestamp> CREATED_AT = createField("created_at", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false).defaultValue(org.jooq.impl.DSL.field("now()", org.jooq.impl.SQLDataType.TIMESTAMP)), this, "");
 
     /**
-     * The column <code>public.site.page_txt</code>.
+     * The column <code>public.site.updated_at</code>.
      */
-    public final TableField<SiteRecord, String> PAGE_TXT = createField("page_txt", org.jooq.impl.SQLDataType.VARCHAR, this, "");
-
-    /**
-     * The column <code>public.site.page_css</code>.
-     */
-    public final TableField<SiteRecord, String> PAGE_CSS = createField("page_css", org.jooq.impl.SQLDataType.VARCHAR, this, "");
-
-    /**
-     * The column <code>public.site.page_js</code>.
-     */
-    public final TableField<SiteRecord, String> PAGE_JS = createField("page_js", org.jooq.impl.SQLDataType.VARCHAR, this, "");
+    public final TableField<SiteRecord, Timestamp> UPDATED_AT = createField("updated_at", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false).defaultValue(org.jooq.impl.DSL.field("now()", org.jooq.impl.SQLDataType.TIMESTAMP)), this, "");
 
     /**
      * Create a <code>public.site</code> table reference
@@ -132,6 +130,14 @@ public class Site extends TableImpl<SiteRecord> {
      * {@inheritDoc}
      */
     @Override
+    public Identity<SiteRecord, Integer> getIdentity() {
+        return Keys.IDENTITY_SITE;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public UniqueKey<SiteRecord> getPrimaryKey() {
         return Keys.SITE_PKEY;
     }
@@ -141,7 +147,7 @@ public class Site extends TableImpl<SiteRecord> {
      */
     @Override
     public List<UniqueKey<SiteRecord>> getKeys() {
-        return Arrays.<UniqueKey<SiteRecord>>asList(Keys.SITES, Keys.SITE_PKEY);
+        return Arrays.<UniqueKey<SiteRecord>>asList(Keys.SITE_PKEY, Keys.SITES);
     }
 
     /**

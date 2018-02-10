@@ -9,7 +9,8 @@ import java.util.Optional;
 @Builder
 public class Items {
 
-    private Optional<String> html;
-    private String url;
+    private String host_url;
+    private String parameter;
+    private Optional<String> page_html;
     private Optional<String> page_text;
 }

@@ -4,9 +4,11 @@
 package com.walker.webwalker.dao;
 
 
+import com.walker.webwalker.dao.tables.Content;
+import com.walker.webwalker.dao.tables.Difference;
+import com.walker.webwalker.dao.tables.Page;
 import com.walker.webwalker.dao.tables.SchemaVersion;
 import com.walker.webwalker.dao.tables.Site;
-import com.walker.webwalker.dao.tables.SubSite;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -15,6 +17,7 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Catalog;
+import org.jooq.Sequence;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 
@@ -32,12 +35,27 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 187787213;
+    private static final long serialVersionUID = -912890864;
 
     /**
      * The reference instance of <code>public</code>
      */
     public static final Public PUBLIC = new Public();
+
+    /**
+     * The table <code>public.content</code>.
+     */
+    public final Content CONTENT = com.walker.webwalker.dao.tables.Content.CONTENT;
+
+    /**
+     * The table <code>public.difference</code>.
+     */
+    public final Difference DIFFERENCE = com.walker.webwalker.dao.tables.Difference.DIFFERENCE;
+
+    /**
+     * The table <code>public.page</code>.
+     */
+    public final Page PAGE = com.walker.webwalker.dao.tables.Page.PAGE;
 
     /**
      * The table <code>public.schema_version</code>.
@@ -48,11 +66,6 @@ public class Public extends SchemaImpl {
      * The table <code>public.site</code>.
      */
     public final Site SITE = com.walker.webwalker.dao.tables.Site.SITE;
-
-    /**
-     * The table <code>public.sub_site</code>.
-     */
-    public final SubSite SUB_SITE = com.walker.webwalker.dao.tables.SubSite.SUB_SITE;
 
     /**
      * No further instances allowed
@@ -71,6 +84,21 @@ public class Public extends SchemaImpl {
     }
 
     @Override
+    public final List<Sequence<?>> getSequences() {
+        List result = new ArrayList();
+        result.addAll(getSequences0());
+        return result;
+    }
+
+    private final List<Sequence<?>> getSequences0() {
+        return Arrays.<Sequence<?>>asList(
+            Sequences.CONTENT_ID_SEQ,
+            Sequences.DIFFERENCE_ID_SEQ,
+            Sequences.PAGE_ID_SEQ,
+            Sequences.SITE_ID_SEQ);
+    }
+
+    @Override
     public final List<Table<?>> getTables() {
         List result = new ArrayList();
         result.addAll(getTables0());
@@ -79,8 +107,10 @@ public class Public extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            Content.CONTENT,
+            Difference.DIFFERENCE,
+            Page.PAGE,
             SchemaVersion.SCHEMA_VERSION,
-            Site.SITE,
-            SubSite.SUB_SITE);
+            Site.SITE);
     }
 }

@@ -4,9 +4,11 @@
 package com.walker.webwalker.dao;
 
 
+import com.walker.webwalker.dao.tables.Content;
+import com.walker.webwalker.dao.tables.Difference;
+import com.walker.webwalker.dao.tables.Page;
 import com.walker.webwalker.dao.tables.SchemaVersion;
 import com.walker.webwalker.dao.tables.Site;
-import com.walker.webwalker.dao.tables.SubSite;
 
 import javax.annotation.Generated;
 
@@ -32,23 +34,27 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index CONTENT_PKEY = Indexes0.CONTENT_PKEY;
+    public static final Index DIFFERENCE_PKEY = Indexes0.DIFFERENCE_PKEY;
+    public static final Index PAGE_PKEY = Indexes0.PAGE_PKEY;
+    public static final Index SUB_SITES = Indexes0.SUB_SITES;
     public static final Index SCHEMA_VERSION_PK = Indexes0.SCHEMA_VERSION_PK;
     public static final Index SCHEMA_VERSION_S_IDX = Indexes0.SCHEMA_VERSION_S_IDX;
     public static final Index SITE_PKEY = Indexes0.SITE_PKEY;
     public static final Index SITES = Indexes0.SITES;
-    public static final Index SUB_SITE_PKEY = Indexes0.SUB_SITE_PKEY;
-    public static final Index SUB_SITES = Indexes0.SUB_SITES;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Indexes0 extends AbstractKeys {
+        public static Index CONTENT_PKEY = createIndex("content_pkey", Content.CONTENT, new OrderField[] { Content.CONTENT.ID }, true);
+        public static Index DIFFERENCE_PKEY = createIndex("difference_pkey", Difference.DIFFERENCE, new OrderField[] { Difference.DIFFERENCE.ID }, true);
+        public static Index PAGE_PKEY = createIndex("page_pkey", Page.PAGE, new OrderField[] { Page.PAGE.ID }, true);
+        public static Index SUB_SITES = createIndex("sub_sites", Page.PAGE, new OrderField[] { Page.PAGE.PAGE_URL }, true);
         public static Index SCHEMA_VERSION_PK = createIndex("schema_version_pk", SchemaVersion.SCHEMA_VERSION, new OrderField[] { SchemaVersion.SCHEMA_VERSION.INSTALLED_RANK }, true);
         public static Index SCHEMA_VERSION_S_IDX = createIndex("schema_version_s_idx", SchemaVersion.SCHEMA_VERSION, new OrderField[] { SchemaVersion.SCHEMA_VERSION.SUCCESS }, false);
-        public static Index SITE_PKEY = createIndex("site_pkey", Site.SITE, new OrderField[] { Site.SITE.SITE_ID }, true);
+        public static Index SITE_PKEY = createIndex("site_pkey", Site.SITE, new OrderField[] { Site.SITE.ID }, true);
         public static Index SITES = createIndex("sites", Site.SITE, new OrderField[] { Site.SITE.SITE_URL }, true);
-        public static Index SUB_SITE_PKEY = createIndex("sub_site_pkey", SubSite.SUB_SITE, new OrderField[] { SubSite.SUB_SITE.SUB_SITE_ID }, true);
-        public static Index SUB_SITES = createIndex("sub_sites", SubSite.SUB_SITE, new OrderField[] { SubSite.SUB_SITE.SITE_URL }, true);
     }
 }

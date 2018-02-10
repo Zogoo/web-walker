@@ -4,16 +4,21 @@
 package com.walker.webwalker.dao;
 
 
+import com.walker.webwalker.dao.tables.Content;
+import com.walker.webwalker.dao.tables.Difference;
+import com.walker.webwalker.dao.tables.Page;
 import com.walker.webwalker.dao.tables.SchemaVersion;
 import com.walker.webwalker.dao.tables.Site;
-import com.walker.webwalker.dao.tables.SubSite;
+import com.walker.webwalker.dao.tables.records.ContentRecord;
+import com.walker.webwalker.dao.tables.records.DifferenceRecord;
+import com.walker.webwalker.dao.tables.records.PageRecord;
 import com.walker.webwalker.dao.tables.records.SchemaVersionRecord;
 import com.walker.webwalker.dao.tables.records.SiteRecord;
-import com.walker.webwalker.dao.tables.records.SubSiteRecord;
 
 import javax.annotation.Generated;
 
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.AbstractKeys;
 
@@ -36,36 +41,57 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<ContentRecord, Integer> IDENTITY_CONTENT = Identities0.IDENTITY_CONTENT;
+    public static final Identity<DifferenceRecord, Integer> IDENTITY_DIFFERENCE = Identities0.IDENTITY_DIFFERENCE;
+    public static final Identity<PageRecord, Integer> IDENTITY_PAGE = Identities0.IDENTITY_PAGE;
+    public static final Identity<SiteRecord, Integer> IDENTITY_SITE = Identities0.IDENTITY_SITE;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<ContentRecord> CONTENT_PKEY = UniqueKeys0.CONTENT_PKEY;
+    public static final UniqueKey<DifferenceRecord> DIFFERENCE_PKEY = UniqueKeys0.DIFFERENCE_PKEY;
+    public static final UniqueKey<PageRecord> PAGE_PKEY = UniqueKeys0.PAGE_PKEY;
+    public static final UniqueKey<PageRecord> SUB_SITES = UniqueKeys0.SUB_SITES;
     public static final UniqueKey<SchemaVersionRecord> SCHEMA_VERSION_PK = UniqueKeys0.SCHEMA_VERSION_PK;
-    public static final UniqueKey<SiteRecord> SITES = UniqueKeys0.SITES;
     public static final UniqueKey<SiteRecord> SITE_PKEY = UniqueKeys0.SITE_PKEY;
-    public static final UniqueKey<SubSiteRecord> SUB_SITE_PKEY = UniqueKeys0.SUB_SITE_PKEY;
-    public static final UniqueKey<SubSiteRecord> SUB_SITES = UniqueKeys0.SUB_SITES;
+    public static final UniqueKey<SiteRecord> SITES = UniqueKeys0.SITES;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
     // -------------------------------------------------------------------------
 
-    public static final ForeignKey<SubSiteRecord, SiteRecord> SUB_SITE__SUB_SITE_SITE_ID_FKEY = ForeignKeys0.SUB_SITE__SUB_SITE_SITE_ID_FKEY;
+    public static final ForeignKey<ContentRecord, PageRecord> CONTENT__CONTENT_PAGE_ID_FKEY = ForeignKeys0.CONTENT__CONTENT_PAGE_ID_FKEY;
+    public static final ForeignKey<ContentRecord, ContentRecord> CONTENT__CONTENT_NEW_CONTENT_ID_FKEY = ForeignKeys0.CONTENT__CONTENT_NEW_CONTENT_ID_FKEY;
+    public static final ForeignKey<DifferenceRecord, ContentRecord> DIFFERENCE__DIFFERENCE_CONTENT_ID_FKEY = ForeignKeys0.DIFFERENCE__DIFFERENCE_CONTENT_ID_FKEY;
+    public static final ForeignKey<PageRecord, SiteRecord> PAGE__PAGE_SITE_ID_FKEY = ForeignKeys0.PAGE__PAGE_SITE_ID_FKEY;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
+    private static class Identities0 extends AbstractKeys {
+        public static Identity<ContentRecord, Integer> IDENTITY_CONTENT = createIdentity(Content.CONTENT, Content.CONTENT.ID);
+        public static Identity<DifferenceRecord, Integer> IDENTITY_DIFFERENCE = createIdentity(Difference.DIFFERENCE, Difference.DIFFERENCE.ID);
+        public static Identity<PageRecord, Integer> IDENTITY_PAGE = createIdentity(Page.PAGE, Page.PAGE.ID);
+        public static Identity<SiteRecord, Integer> IDENTITY_SITE = createIdentity(Site.SITE, Site.SITE.ID);
+    }
+
     private static class UniqueKeys0 extends AbstractKeys {
+        public static final UniqueKey<ContentRecord> CONTENT_PKEY = createUniqueKey(Content.CONTENT, "content_pkey", Content.CONTENT.ID);
+        public static final UniqueKey<DifferenceRecord> DIFFERENCE_PKEY = createUniqueKey(Difference.DIFFERENCE, "difference_pkey", Difference.DIFFERENCE.ID);
+        public static final UniqueKey<PageRecord> PAGE_PKEY = createUniqueKey(Page.PAGE, "page_pkey", Page.PAGE.ID);
+        public static final UniqueKey<PageRecord> SUB_SITES = createUniqueKey(Page.PAGE, "sub_sites", Page.PAGE.PAGE_URL);
         public static final UniqueKey<SchemaVersionRecord> SCHEMA_VERSION_PK = createUniqueKey(SchemaVersion.SCHEMA_VERSION, "schema_version_pk", SchemaVersion.SCHEMA_VERSION.INSTALLED_RANK);
+        public static final UniqueKey<SiteRecord> SITE_PKEY = createUniqueKey(Site.SITE, "site_pkey", Site.SITE.ID);
         public static final UniqueKey<SiteRecord> SITES = createUniqueKey(Site.SITE, "sites", Site.SITE.SITE_URL);
-        public static final UniqueKey<SiteRecord> SITE_PKEY = createUniqueKey(Site.SITE, "site_pkey", Site.SITE.SITE_ID);
-        public static final UniqueKey<SubSiteRecord> SUB_SITE_PKEY = createUniqueKey(SubSite.SUB_SITE, "sub_site_pkey", SubSite.SUB_SITE.SUB_SITE_ID);
-        public static final UniqueKey<SubSiteRecord> SUB_SITES = createUniqueKey(SubSite.SUB_SITE, "sub_sites", SubSite.SUB_SITE.SITE_URL);
     }
 
     private static class ForeignKeys0 extends AbstractKeys {
-        public static final ForeignKey<SubSiteRecord, SiteRecord> SUB_SITE__SUB_SITE_SITE_ID_FKEY = createForeignKey(com.walker.webwalker.dao.Keys.SITE_PKEY, SubSite.SUB_SITE, "sub_site__sub_site_site_id_fkey", SubSite.SUB_SITE.SITE_ID);
+        public static final ForeignKey<ContentRecord, PageRecord> CONTENT__CONTENT_PAGE_ID_FKEY = createForeignKey(com.walker.webwalker.dao.Keys.PAGE_PKEY, Content.CONTENT, "content__content_page_id_fkey", Content.CONTENT.PAGE_ID);
+        public static final ForeignKey<ContentRecord, ContentRecord> CONTENT__CONTENT_NEW_CONTENT_ID_FKEY = createForeignKey(com.walker.webwalker.dao.Keys.CONTENT_PKEY, Content.CONTENT, "content__content_new_content_id_fkey", Content.CONTENT.NEW_CONTENT_ID);
+        public static final ForeignKey<DifferenceRecord, ContentRecord> DIFFERENCE__DIFFERENCE_CONTENT_ID_FKEY = createForeignKey(com.walker.webwalker.dao.Keys.CONTENT_PKEY, Difference.DIFFERENCE, "difference__difference_content_id_fkey", Difference.DIFFERENCE.CONTENT_ID);
+        public static final ForeignKey<PageRecord, SiteRecord> PAGE__PAGE_SITE_ID_FKEY = createForeignKey(com.walker.webwalker.dao.Keys.SITE_PKEY, Page.PAGE, "page__page_site_id_fkey", Page.PAGE.SITE_ID);
     }
 }

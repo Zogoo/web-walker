@@ -27,9 +27,8 @@ public class Storage implements PersistenceService{
     public void loadPage (Optional<Page> page){
         Items items = extractor.parseDocument(page);
         Site site = Site.builder()
-                        .siteUrl(items.getUrl())
-                        .pageHtml(items.getHtml().get())
+                        .siteUrl(items.getHost_url())
                         .build();
-        siteRepository.updateSite(site);
     }
+
 }
