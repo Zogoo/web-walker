@@ -22,15 +22,22 @@ public class ExtractorImplTest {
 
     private Document dummyDocument;
 
+    private String protocol;
+    private String base_url;
+    private String parameter;
+
     @Resource(name = "extractor")
     private Extractor extractor;
 
     @Before
     public void setUp() throws Exception {
+        protocol = "http://";
+        base_url = "www.tokyo.embassy.mn";
+        parameter = "/home";
         ClassLoader classLoader = this.getClass().getClassLoader();
         File file = new File(classLoader.getResource("dummy_site.html").getFile());
         dummyDocument = Jsoup.parse(file, "UTF-8");
-        dummyDocument.setBaseUri("http://www.tokyo.embassy.mn/home");
+        dummyDocument.setBaseUri(protocol + base_url + parameter);
     }
 
     @After
@@ -43,8 +50,8 @@ public class ExtractorImplTest {
         assertNotNull(extractor.getSite());
         assertNotNull(extractor.getPage());
         assertNotNull(extractor.getContent());
-        assertNotNull(extractor.getSite().getSiteUrl());
-        assertNotNull(extractor.getPage().getPageUrl());
+        assertEquals(extractor.getSite().getSiteUrl(), base_url);
+        assertEquals(extractor.getPage().getPageUrl(), parameter);
         assertNotNull(extractor.getContent().getPageHtml());
     }
 }
