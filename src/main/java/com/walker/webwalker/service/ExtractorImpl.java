@@ -1,42 +1,78 @@
 package com.walker.webwalker.service;
 
+import com.walker.webwalker.dao.Content;
+import com.walker.webwalker.dao.Page;
+import com.walker.webwalker.dao.Site;
 import com.walker.webwalker.dto.Items;
-import edu.uci.ics.crawler4j.crawler.Page;
-import edu.uci.ics.crawler4j.parser.HtmlParseData;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Optional;
 
-@Data
 @Service("extractor")
 public class ExtractorImpl implements Extractor {
 
-    private Items items;
+    @Setter @Getter private Items items;
+    @Setter @Getter private Site site;
+    @Setter @Getter private Page page;
+    @Setter @Getter private Content content;
+
 
     @Override
-    public Items parseDocument(Optional<Page> page){
-        page.map(this::parseAsString);
+    public Items parseDocument(Optional<Document> document){
+        document.map(this::parseAsItem);
+        document.map(this::parseAsSite);
+        document.map(this::parseAsPage);
+        document.map(this::parseAsContent);
         return items;
     }
 
-    private Items parseAsString(Page page){
+    private Items parseAsItem(Document document){
 
-        if (page.getParseData() instanceof HtmlParseData){
+        this.items = Items.builder()
+                .hostUrl(document.baseUri())
+                .pageHtml(Optional.ofNullable(document.outerHtml()))
+                .pageTxt(Optional.ofNullable(document.text()))
+                .build();
 
-            HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
-            this.items = Items.builder()
-                    .host_url(page.getWebURL().getURL())
-                    .page_html(Optional.ofNullable(htmlParseData.getHtml()))
-                    .page_text(Optional.ofNullable(htmlParseData.getText()))
-                    .build();
+        return items;
+    }
+
+    private Site parseAsSite(Document document){
+        this.site = Site.builder()
+                .siteUrl(urlParser(document.baseUri()).getHost())
+                .build();
+        return site;
+    }
+
+    private Page parseAsPage(Document document){
+        this.page = Page.builder()
+                .pageUrl(urlParser(document.baseUri()).getPath())
+                .build();
+        return page;
+    }
+
+    private Content parseAsContent(Document document){
+        this.content = Content.builder()
+                .baseContent(true)
+                .pageTxt(document.text())
+                .pageHtml(document.html())
+                .build();
+        return content;
+    }
+
+    private URL urlParser(String url){
+        URL parsedUrl;
+        try {
+            parsedUrl = new URL(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+            return null;
         }
-
-        return items;
+        return parsedUrl;
     }
-
-
 }

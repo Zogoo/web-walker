@@ -1,5 +1,6 @@
 package com.walker.webwalker.service;
 
+import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import org.jsoup.Jsoup;
 import org.junit.After;
 import org.junit.Before;
@@ -13,12 +14,13 @@ import org.jsoup.nodes.Document;
 import javax.annotation.Resource;
 import java.io.File;
 import java.util.Optional;
+import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ExtractorImplTest {
 
-    private Document dummy_document;
+    private Document dummyDocument;
 
     @Resource(name = "extractor")
     private Extractor extractor;
@@ -27,7 +29,8 @@ public class ExtractorImplTest {
     public void setUp() throws Exception {
         ClassLoader classLoader = this.getClass().getClassLoader();
         File file = new File(classLoader.getResource("dummy_site.html").getFile());
-        dummy_document = Jsoup.parse(file, "UTF-8");
+        dummyDocument = Jsoup.parse(file, "UTF-8");
+        dummyDocument.setBaseUri("http://www.tokyo.embassy.mn/home");
     }
 
     @After
@@ -36,6 +39,12 @@ public class ExtractorImplTest {
 
     @Test
     public void parseDocument() {
-//        extractor.parseDocument(Optional.ofNullable(dummy_document));
+        extractor.parseDocument(Optional.ofNullable(dummyDocument));
+        assertNotNull(extractor.getSite());
+        assertNotNull(extractor.getPage());
+        assertNotNull(extractor.getContent());
+        assertNotNull(extractor.getSite().getSiteUrl());
+        assertNotNull(extractor.getPage().getPageUrl());
+        assertNotNull(extractor.getContent().getPageHtml());
     }
 }

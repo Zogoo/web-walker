@@ -4,6 +4,8 @@ import edu.uci.ics.crawler4j.crawler.Page;
 import edu.uci.ics.crawler4j.crawler.WebCrawler;
 import edu.uci.ics.crawler4j.parser.HtmlParseData;
 import edu.uci.ics.crawler4j.url.WebURL;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.slf4j.Logger;
 
 import java.util.Optional;
@@ -51,6 +53,7 @@ public class CrawlerImpl extends WebCrawler {
             HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
             String text = htmlParseData.getText();
             String html = htmlParseData.getHtml();
+            Document doc = Jsoup.parseBodyFragment(html);
 
             Set<WebURL> links = htmlParseData.getOutgoingUrls();
 
@@ -58,7 +61,7 @@ public class CrawlerImpl extends WebCrawler {
             logger.info("Html lenght: " + html.length());
             logger.info("Number of outgoing links: " + links.size());
 
-            persistenceService.loadPage(Optional.ofNullable(page));
+            persistenceService.loadPage(Optional.ofNullable(doc));
         }
     }
 }

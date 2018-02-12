@@ -1,17 +1,14 @@
-package com.walker.webwalker.dao;
+package com.walker.webwalker.dto;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.junit.Assert.*;
 
-@SpringBootTest
-public class SiteTest {
+public class ItemsTest {
 
-    private Site site;
+    private Items items;
 
     private String protocol;
     private String base_url;
@@ -22,15 +19,21 @@ public class SiteTest {
         protocol = "https://";
         base_url = "test.example.com";
         parameter = "/test&id=1";
-        site = Site.builder().siteUrl(protocol + base_url + parameter).build();
+        items = Items.builder().hostUrl(protocol + base_url + parameter).build();
     }
 
     @After
     public void tearDown() throws Exception {
     }
 
+
     @Test
-    public void getSiteUrl() { ;
-        assertEquals(protocol + base_url + parameter, site.getSiteUrl());
+    public void getHostUrl() {
+        assertEquals(base_url, items.getHostUrl());
+    }
+
+    @Test
+    public void getPageUrl() {
+        assertEquals(parameter, items.getPageUrl());
     }
 }
