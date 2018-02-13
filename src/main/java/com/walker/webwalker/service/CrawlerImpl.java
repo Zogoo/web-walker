@@ -54,6 +54,7 @@ public class CrawlerImpl extends WebCrawler {
             String text = htmlParseData.getText();
             String html = htmlParseData.getHtml();
             Document doc = Jsoup.parseBodyFragment(html);
+            doc.setBaseUri(url);
 
             Set<WebURL> links = htmlParseData.getOutgoingUrls();
 

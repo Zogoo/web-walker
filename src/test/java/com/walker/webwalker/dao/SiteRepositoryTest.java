@@ -66,6 +66,19 @@ public class SiteRepositoryTest {
     }
 
     @Test
+    public void fetchSite(){
+        siteRepository.addSite(site);
+        Site test_site = siteRepository.fetchSite(site);
+        assertEquals(test_site.getSiteUrl(), site.getSiteUrl());
+    }
+
+    @Test
+    public void fetchNotExistingSite(){
+        Site test_site = siteRepository.fetchSite(site);
+        assertNull(test_site);
+    }
+
+    @Test
     public void removeSites(){
         siteRepository.addSite(site);
         siteRepository.addPage(site, page, content);

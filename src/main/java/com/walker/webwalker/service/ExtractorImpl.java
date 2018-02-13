@@ -10,6 +10,7 @@ import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
 
 import java.net.MalformedURLException;
+import java.net.URI;
 import java.net.URL;
 import java.util.Optional;
 
@@ -43,15 +44,16 @@ public class ExtractorImpl implements Extractor {
     }
 
     private Site parseAsSite(Document document){
+        URI uriObj = getURIFromURL(document.baseUri());
         this.site = Site.builder()
-                .siteUrl(urlParser(document.baseUri()).getHost())
+                .siteUrl(uriObj.getScheme() + "://" + uriObj.getHost())
                 .build();
         return site;
     }
 
     private Page parseAsPage(Document document){
         this.page = Page.builder()
-                .pageUrl(urlParser(document.baseUri()).getPath())
+                .pageUrl(getURIFromURL(document.baseUri()).getPath())
                 .build();
         return page;
     }
@@ -65,14 +67,9 @@ public class ExtractorImpl implements Extractor {
         return content;
     }
 
-    private URL urlParser(String url){
-        URL parsedUrl;
-        try {
-            parsedUrl = new URL(url);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-            return null;
-        }
+    private URI getURIFromURL(String url){
+        URI parsedUrl;
+        parsedUrl = URI.create(url);
         return parsedUrl;
     }
 }

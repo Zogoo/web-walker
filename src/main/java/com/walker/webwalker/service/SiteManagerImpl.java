@@ -32,14 +32,14 @@ public class SiteManagerImpl implements SiteManager {
 
     @Override
     public boolean addNewSite(NewSite newSite){
-        siteRepository.addSite(Site.builder().siteUrl(newSite.getUrl()).build());
+        siteRepository.addSite(Site.builder().siteUrl(newSite.getMainUrl()).build());
         return true;
     }
 
     @Override
     public Map<String, String> readAndCompare() throws Exception {
         String crawlStorageFolder = "/home/zogoo/data/crawl/root";
-        int numberOfCrawlers = 7;
+        int numberOfCrawlers = 2;
         int maxPagesToFetch = 2;
         // crawler4j waits at least 200 milliseconds between requests
         int politenessDelay = 10;

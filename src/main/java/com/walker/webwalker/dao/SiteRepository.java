@@ -48,12 +48,23 @@ public class SiteRepository {
 
     @Transactional
     public Site fetchSite(Site site){
-        return dsl.selectFrom(SITE).where(SITE.SITE_URL.eq(site.getSiteUrl())).fetchAny().into(Site.class);
+    // TODO: To investigate good way to handle null
+        try {
+            return dsl.selectFrom(SITE).where(SITE.SITE_URL.eq(site.getSiteUrl())).fetchAny().into(Site.class);
+        }
+        catch(NullPointerException e){
+            return null;
+        }
     }
 
     @Transactional
     public Page fetchPage(Page page){
-        return dsl.selectFrom(PAGE).where(PAGE.PAGE_URL.eq(page.getPageUrl())).fetchAny().into(Page.class);
+        try {
+            return dsl.selectFrom(PAGE).where(PAGE.PAGE_URL.eq(page.getPageUrl())).fetchAny().into(Page.class);
+        }
+        catch (NullPointerException e){
+            return null;
+        }
     }
 
     @Transactional

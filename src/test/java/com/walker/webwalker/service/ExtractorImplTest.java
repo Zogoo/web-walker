@@ -50,7 +50,7 @@ public class ExtractorImplTest {
         assertNotNull(extractor.getSite());
         assertNotNull(extractor.getPage());
         assertNotNull(extractor.getContent());
-        assertEquals(extractor.getSite().getSiteUrl(), base_url);
+        assertEquals(extractor.getSite().getSiteUrl(), protocol + base_url);
         assertEquals(extractor.getPage().getPageUrl(), parameter);
         assertNotNull(extractor.getContent().getPageHtml());
     }
